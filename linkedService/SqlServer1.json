@@ -1,0 +1,31 @@
+{
+	"name": "SqlServer1",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"parameters": {
+			"Fully qualified domain name": {
+				"type": "string",
+				"defaultValue": "DESKTOP-9VRPOJK"
+			},
+			"User name": {
+				"type": "string",
+				"defaultValue": "damg7370_fall25"
+			}
+		},
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"server": "DESKTOP-9VRP0JK",
+			"database": "DAMG7370FALL2025",
+			"encrypt": "mandatory",
+			"trustServerCertificate": true,
+			"authenticationType": "SQL",
+			"userName": "damg7370_fall25",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiIzZjEzYWZlOC00ZjMxLTQ0MjYtYTA4MC1lNzVhNWEwMmFkMzgiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "integrationRuntime1",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

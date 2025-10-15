@@ -1,0 +1,9 @@
+{
+	"name": "ADF-riya-DW",
+	"location": "eastus2",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "bb1c4ffb-1625-48cd-8e4e-6462ec35d133",
+		"tenantId": "a8eec281-aaa3-4dae-ac9b-9a398b9215e7"
+	}
+}

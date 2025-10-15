@@ -1,0 +1,11 @@
+{
+	"name": "ls_Azure_Key_Vault",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureKeyVault",
+		"typeProperties": {
+			"baseUrl": "https://riya-kv.vault.azure.net/"
+		}
+	}
+}

@@ -1,0 +1,41 @@
+{
+	"name": "SnowChinookDS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Snowflake1",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"AccountName": "UWAUPUG-KHA56933",
+				"Database": "MEDIA_DB",
+				"Warehouse": "MEDIA_WH",
+				"Username": "MEDIA_USER",
+				"Role": "MEDIA_ROLE",
+				"Host": "UWAUPUG-KHA56933.snowflakecomputing.com"
+			}
+		},
+		"parameters": {
+			"schema_name": {
+				"type": "string",
+				"defaultValue": "STAGE"
+			},
+			"table_name": {
+				"type": "string",
+				"defaultValue": "CUSTOMER"
+			}
+		},
+		"annotations": [],
+		"type": "SnowflakeV2Table",
+		"schema": [],
+		"typeProperties": {
+			"schema": {
+				"value": "@dataset().schema_name",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().table_name",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,118 @@
+{
+	"name": "CustomerStage",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "SnowChinookDS",
+						"type": "DatasetReference"
+					},
+					"name": "CustomerStg"
+				},
+				{
+					"dataset": {
+						"referenceName": "SnowChinookDS",
+						"type": "DatasetReference"
+					},
+					"name": "Custdim"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "SnowChinookDS",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "join1"
+				},
+				{
+					"name": "derivedColumn1"
+				},
+				{
+					"name": "alterRow1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          CUSTOMERID as decimal(38,0),",
+				"          FIRSTNAME as string,",
+				"          LASTNAME as string,",
+				"          COMPANY as string,",
+				"          ADDRESS as string,",
+				"          CITY as string,",
+				"          STATE as string,",
+				"          COUNTRY as string,",
+				"          POSTALCODE as string,",
+				"          PHONE as string,",
+				"          FAX as string,",
+				"          EMAIL as string,",
+				"          SUPPORTREPID as decimal(38,0),",
+				"          CREATED_BY as string,",
+				"          CREATED_DT as date,",
+				"          RN as decimal(18,0)",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'table') ~> CustomerStg",
+				"source(output(",
+				"          CUSTOMER_KEY as decimal(10,0),",
+				"          CUSTOMER_ID as decimal(10,0),",
+				"          FIRST_NAME as string,",
+				"          LAST_NAME as string,",
+				"          COMPANY_NAME as string,",
+				"          CITY as string,",
+				"          STATE as string,",
+				"          COUNTRY as string,",
+				"          ZIP_CODE as string,",
+				"          EMPLOYEE_ID as decimal(10,0),",
+				"          IS_ACTIVE as string,",
+				"          SOURCE_ID as string,",
+				"          DATE_TO_WAREHOUSE as timestamp",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'table') ~> Custdim",
+				"CustomerStg, Custdim join(CUSTOMERID == CUSTOMER_ID,",
+				"     joinType:'left',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join1",
+				"join1 derive(SOURCE_ID = 'Source',",
+				"          DATE_TO_WAREHOUSE = currentTimestamp()) ~> derivedColumn1",
+				"derivedColumn1 alterRow(insertIf(isNull(CUSTOMER_ID)),",
+				"     updateIf(!isNull(CUSTOMER_ID))) ~> alterRow1",
+				"alterRow1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     stageInsert: true,",
+				"     mapColumn(",
+				"          CUSTOMER_ID = CUSTOMERID,",
+				"          FIRST_NAME = FIRSTNAME,",
+				"          LAST_NAME = LASTNAME,",
+				"          COMPANY_NAME = COMPANY,",
+				"          CITY = CustomerStg@CITY,",
+				"          STATE = CustomerStg@STATE,",
+				"          COUNTRY = CustomerStg@COUNTRY,",
+				"          ZIP_CODE = POSTALCODE,",
+				"          EMPLOYEE_ID = SUPPORTREPID,",
+				"          IS_ACTIVE,",
+				"          SOURCE_ID,",
+				"          DATE_TO_WAREHOUSE",
+				"     )) ~> sink1"
+			]
+		}
+	}
+}
