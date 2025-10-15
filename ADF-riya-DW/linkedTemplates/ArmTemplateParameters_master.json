@@ -1,0 +1,48 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "ADF-riya-DW"
+		},
+		"Snowflake1_password": {
+			"value": ""
+		},
+		"SqlServer1_password": {
+			"value": ""
+		},
+		"AzureBlobStorage1_sasUri": {
+			"value": ""
+		},
+		"Snowflake1_properties_typeProperties_database": {
+			"value": "@{linkedService().Database}"
+		},
+		"Snowflake1_properties_typeProperties_role": {
+			"value": "@{linkedService().Role}"
+		},
+		"Snowflake1_properties_typeProperties_host": {
+			"value": "@{linkedService().Host}"
+		},
+		"SqlServer1_properties_typeProperties_server": {
+			"value": "DESKTOP-9VRP0JK"
+		},
+		"SqlServer1_properties_typeProperties_database": {
+			"value": "DAMG7370FALL2025"
+		},
+		"SqlServer1_properties_typeProperties_userName": {
+			"value": "damg7370_fall25"
+		},
+		"ls_Azure_Key_Vault_properties_typeProperties_baseUrl": {
+			"value": "https://riya-kv.vault.azure.net/"
+		},
+		"ls_storage_azure_blob_properties_typeProperties_serviceEndpoint": {
+			"value": "https://riyastorage.blob.core.windows.net/"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
